@@ -31,8 +31,8 @@ float solver(char * in, StackNode ** stack, int * error){
 		return 0;
 	}
 
-//	while((fscanf(fle, "%s ", list) != EOF)){
-	while((fscanf(fle, "%s", list) != EOF) || (((*stack) -> next) != NULL)){
+	while((fscanf(fle, "%s ", list) != EOF)){
+//	while((fscanf(fle, "%s", list) != EOF) || (((*stack) -> next) != NULL)){
 
 	//	printf("%s   ",list);
 		too = atof(list);
