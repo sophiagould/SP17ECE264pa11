@@ -19,33 +19,41 @@ float solver(char * in, StackNode ** stack, int * error){
 	float result;
 	char list[256];
 	//char mop;
+//	StackNode * cur = malloc(sizeof(StackNode));
+//	*cur = *stack;
 
 
 	FILE * fle = fopen(in,"r");
 	if (fle == NULL){
 		fprintf(stderr, "Error while trying to open file to read");
 		*error = 1;
-		fclose(fle);
+		//fclose(fle);
 		return 0;
 	}
 
-	while((fscanf(fle, "%s ", list) != EOF)){
-//	while((fscanf(fle, "%s", list) != EOF) || (((*stack) -> next) != NULL)){
+//	while((fscanf(fle, "%s ", list) != EOF)){
+	while((fscanf(fle, "%s", list) != EOF) || (((*stack) -> next) != NULL)){
 
 	//	printf("%s   ",list);
 		too = atof(list);
 		val = list[0];
 	//	printf("%f    ",too);
 	//	printf("%c    ",val);
-		if((val == '-') || (val == '+') || (val == '*') || (val == '/') ){
-				if(pop(val, stack)){
-					*error = 1;
-				}
+		if((val == '-') || (val == '+') || (val == '*') ||(val == '/') ){
+			result = pop(val, stack, error);
+			if((result == 0) || (*error == 1)){
+				*error = 1;
+				fclose(fle);
+				return result;
+			}
+			push(stack, result);
+		//	free(*cur);
+			
 		}else if(isdigit(val) || (val == '.')){
 			too = atof(list);
 			temp = (float) too;
 			push(stack, temp);
-			//free(cur);
+		//	free(*cur);
 			*error = 0;
 		}else{
 			*error = 1;
@@ -54,44 +62,46 @@ float solver(char * in, StackNode ** stack, int * error){
 	}
 	fclose(fle);
 	result = (*stack)->val;
-	free(*stack);
-	free(stack);
+	//free(list);
+//	free(*stack);
+//	free(stack);
 //	free(cur);
 	return result;
 }
-bool pop(char oper, StackNode ** stack){
+float pop(char oper, StackNode ** stack, int * error){
 	//cur = NULL;
 	float result;
 	float num1;
 	float num2;
-	if((((*stack) -> next) == NULL)){
-		return true;
+	if(((((*stack) -> next)) == NULL || (*stack) == NULL)){
+		*error = 1;
+	//	free(*stack);
+	//	free(stack);
+		return 0;
 	}
 
 	StackNode *cur = *stack;
-
-	num1 = (float)((*stack)->val);
-	num2 = (float)(((*stack)->next)->val);
-	if((num1 == 0) && (oper == '/')) return true;
-	if((num1 == 0) && (num2 == 0) && (oper == '/')) return true;
-	result = calc(num1, num2, oper);
 	
-	*stack = ((cur->next)->next);
-    
-	push(stack, result);
+	num1 = (float)((cur)->val);
+	num2 = (float)(((cur)->next)->val);
+	if((num1 == 0) && (oper == '/')) *error = 1;
+	if((num1 == 0) && (num2 == 0) && (oper == '/')) *error = 1;
+	result = calc(num1, num2, oper);
+	*stack = ((cur->next)->next); 
+
 	free(cur);
-	return false;
+//	free(temp);
+	return result;
 }
 void push(StackNode ** stack, float result){
-//	cur = NULL;
 	StackNode * cur = malloc(sizeof(StackNode));
-	cur -> next = NULL;
-	cur -> val = result;
-	cur -> next = *stack;
+//	cur = NULL;
+	(cur) -> val = result;
+	(cur) -> next = *stack;
 	*stack = cur;
+	return;
 //	cur = *stack;
   //  free(cur);
-	return;
 }
 float calc(float num1, float num2, char var){
 	float result;

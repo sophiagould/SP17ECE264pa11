@@ -21,8 +21,10 @@ float solver(char* , StackNode ** stack, int* error);
 
 void push(StackNode ** stack, float var);
 
-bool pop(char val, StackNode ** stack);
+float pop(char val, StackNode ** stack, int * error);
 
 float calc(float num1, float num2, char val);
+
+//StackNode * cur = malloc(sizeof(StackNode));
 
 #endif

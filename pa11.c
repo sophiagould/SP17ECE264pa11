@@ -13,16 +13,21 @@ int main (int argc, char ** argv) {
 	}
 
 	float result; //store the result of your calculation here.
-	int error;
+	int error = 0;
 
 	StackNode ** stack = malloc(sizeof(StackNode));
 	
 	result = solver(argv[1], stack, &error);
 	if(error == 1){
 		fprintf(stderr, "Unsolvable list\n");
+	//	free(*stack);
+		free(stack);
 		return EXIT_FAILURE;
 	}
 
 	printf("%f\n", result);	
+	free(*stack);
+	free(stack);
+	//fclose(fle);
 	return EXIT_SUCCESS;
 }
