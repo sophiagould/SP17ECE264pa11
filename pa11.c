@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "calc.h"
+#include <stdbool.h>
+#include "pa11.h"
+#include <ctype.h>
+
 
 int main (int argc, char ** argv) {
 	if (argc != 2) {
@@ -10,11 +13,16 @@ int main (int argc, char ** argv) {
 	}
 
 	float result; //store the result of your calculation here.
-	
-	/* Insert code here to perform the RPN calculation.
-	Don't forget to free any memory you allocate once you're done with it! */
+	int error;
 
-	printf("%f\n", result);
+	StackNode ** stack = malloc(sizeof(StackNode));
 	
+	result = solver(argv[1], stack, &error);
+	if(error == 1){
+		fprintf(stderr, "Unsolvable list\n");
+		return EXIT_FAILURE;
+	}
+
+	printf("%f\n", result);	
 	return EXIT_SUCCESS;
 }
