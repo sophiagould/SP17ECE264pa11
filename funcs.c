@@ -31,14 +31,14 @@ float solver(char * in, StackNode ** stack, int * error){
 		return 0;
 	}
 
-	while((fscanf(fle, "%s ", list) != EOF)){
-//	while((fscanf(fle, "%s", list) != EOF) || (((*stack) -> next) != NULL)){
+	while((fscanf(fle, "%s", list) == 1)){
+	//while((fscanf(fle, "%s", list) != 0) || (((*stack) -> next) != NULL)){
 
-	//	printf("%s   ",list);
+	//	printf("x%s   ",list);
 		too = atof(list);
 		val = list[0];
 	//	printf("%f    ",too);
-	//	printf("%c    ",val);
+//		printf("%c    ",val);
 		if((val == '-') || (val == '+') || (val == '*') ||(val == '/') ){
 			result = pop(val, stack, error);
 			if((result == 0) || (*error == 1)){
@@ -61,6 +61,10 @@ float solver(char * in, StackNode ** stack, int * error){
 		//x++;
 	}
 	fclose(fle);
+	if((*stack)->next != NULL){
+		*error = 1;
+	}
+	free((*stack)->next);
 	result = (*stack)->val;
 	//free(list);
 //	free(*stack);
@@ -73,7 +77,7 @@ float pop(char oper, StackNode ** stack, int * error){
 	float result;
 	float num1;
 	float num2;
-	if(((((*stack) -> next)) == NULL || (*stack) == NULL)){
+	if((((*stack)) == NULL || (*stack)-> next == NULL)){
 		*error = 1;
 	//	free(*stack);
 	//	free(stack);
@@ -89,6 +93,7 @@ float pop(char oper, StackNode ** stack, int * error){
 	result = calc(num1, num2, oper);
 	*stack = ((cur->next)->next); 
 
+	free(cur->next);
 	free(cur);
 //	free(temp);
 	return result;
