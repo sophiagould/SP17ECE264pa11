@@ -1,0 +1,51 @@
+*****************************************************************************************************
+* [!] Please contact the person who made this commit if you beleive there are errors in the result. *
+* [!] In this case, it would be Alex: aionescu at purdue dot edu.                                   *
+* [!] Do not contact the other TA as they would not be able to help!                                *
+*****************************************************************************************************
+
+[*] Running make clean...
+[*] Verifying pa11 and *.o do not exist.
+[*] Passed!
+[*] Running make all...
+[*] Checking to see if an executable named 'pa11' exists.
+[*] Passed!
+
+[*] Running tests with student solution...
+[*] Testing simple addition (2 3 +) = 5.000000
+[*] Testing simple subtraction (2 3 -) = -1.000000
+[*] Testing simple multiplication (2 3 *) = 6.000000
+[*] Testing simple division (2 3 /) = 0.666667
+[*] You passed 4/4 of the simple test cases.
+
+[*] Testing several complex expressions.
+Test cases #4-16 are described here. You should see the number of each complex test case you get correct. Numbers that are missing are failed test cases.
+4-8 & 12 & 14: Whole numbers in file that perform all 4 operations
+9-10: Floating point numbers in file that perform all 4 operations
+11: empty file
+13: testing adding small number 100 times
+15: division by positive and negative 0
+16: undefined expressions such as inf/inf or 0/0
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+[*] You passed 11/13 of the complex test cases.
+
+[*] The following test cases should return EXIT_FAILURE.
+[*] Testing a file that has too many numbers for the operands given.
+[*] Testing a file that has too few numbers for the operands given.
+[*] Testing a nonexistant file.
+[*] You passed 3/3 of the error test cases.
+[*] You passed 18/20 with your solution. (5% each)
+
+[*] Verifying valgrind memory leaks & errors. (-10% off per byte/error)
+[*] There are 0 byte(s) leaked.
+[*] There are 2 error(s) detected by valgrind.
