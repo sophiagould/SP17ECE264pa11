@@ -64,11 +64,11 @@ float solver(char * in, StackNode ** stack, int * error){
 	if((*stack)->next != NULL){
 		*error = 1;
 	}
-	free((*stack)->next);
+	freeze(*stack);
 	result = (*stack)->val;
 	//free(list);
 //	free(*stack);
-//	free(stack);
+	//free(stack);
 //	free(cur);
 	return result;
 }
@@ -124,6 +124,14 @@ float calc(float num1, float num2, char var){
 	}
 	return result;
 }
-
+void freeze(StackNode * stack){
+	if((stack)->next != NULL){
+		free((stack)->next);
+		if((((stack) -> next)->next) != NULL){
+			freeze(((stack)->next));
+		}
+	}
+	return;
+}
 
 	
